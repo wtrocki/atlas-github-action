@@ -15,9 +15,9 @@ jobs:
       id: createCluster
       with:
         ## Project ID
-        projectId: ${{ secrets.PROJECT_ID }}
+        projectId: ${{ secrets.PROJECTID }}
         ## Name of cluster
-        name: my-cluster
+        name: ${{ secrets.CLUSTER_NAME }}
         ## Validates atlas credentials without creating cluster
         reuse: true
       env:
