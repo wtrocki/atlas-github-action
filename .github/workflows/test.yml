@@ -1,4 +1,4 @@
-name: "units-test"
+name: "action-test"
 on:
   pull_request:
   push:
@@ -23,7 +23,7 @@ jobs:
       env:
         ## Auth
         MDB_API_KEY: ${{ secrets.MDB_API_KEY }}
-        MDB_API_SECRET: ${{ secrets.MDB_API_KEY }}
+        MDB_API_SECRET: ${{ secrets.MDB_API_SECRET }}
         ## MongoDB connection credentials
         MONGODB_USER: ${{ secrets.MONGODB_USER }}
         MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
