@@ -19,8 +19,10 @@ jobs:
         projectId: 63b6e19c362d4278259cffc7
         ## Name of cluster
         name: my-cluster
-        ## Validates atlas credentials without creating cluster
-        dryrun: true
+        ## Reuse existing cluster instead of creating new one
+        reuse: true
+    default: "false"
+    description: 'Reuse existing cluster without creating new one'
       env:
         ## Auth
         MDB_API_KEY: ${{ secrets.MDB_API_KEY }}
