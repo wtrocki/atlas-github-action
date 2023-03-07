@@ -1,19 +1,40 @@
-# Create a JavaScript Action
+# Atlas Github Action
 
-<p align="center">
-  <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
-</p>
+> NOTE: This project is just an experiment. It should not be used by general public.
 
-Use this template to bootstrap the creation of a JavaScript action.:rocket:
+## Usage
 
-This template includes tests, linting, a validation workflow, publishing, and versioning guidance.
+You can now consume the action 
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+```yaml
+jobs:
+  # test action works running from the graph
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: wtrocki/atlas-github-action
+      id: createAtlasCluster
+      with:
+        ## Project ID
+        projectId: 63b6e19c362d4278259cffc7
+        ## Name of cluster
+        name: my-cluster
+        ## Validates atlas credentials without creating cluster
+        dryrun: true
+      env:
+        ## Auth
+        MDB_API_KEY: ${{ secrets.MDB_API_KEY }}
+        MDB_API_SECRET: ${{ secrets.MDB_API_KEY }}
+        ## MongoDB connection credentials
+        MONGODB_USER: ${{ secrets.MONGODB_USER }}
+        MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      - run: 
+          ## Prints cluster url to connect with the cluster
+          echo ${{steps.createCluster.outputs.clusterURL}}
+```
 
-## Create an action from this template
 
-Click the `Use this Template` and provide the new repo details for your action
-
+ 
 ## Code in Main
 
 Install the dependencies
@@ -102,15 +123,3 @@ Note: We recommend using the `--license` option for ncc, which will create a lic
 Your action is now published! :rocket:
 
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Usage
-
-You can now consume the action by referencing the v1 branch
-
-```yaml
-uses: actions/javascript-action@v1
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
