@@ -7,9 +7,9 @@ inputs:
   name:
     description: 'cluster name'
     required: true
-  dryrun:
+  reuse:
     default: "false"
-    description: 'Run without creating cluster. Test if input values are valid'
+    description: 'Reuse existing cluster without creating new one'
 outputs:
   connectionURL: # output will be available to future steps
     description: 'connectionURL to the mongodb server'

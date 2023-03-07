@@ -19,7 +19,7 @@ jobs:
         ## Name of cluster
         name: my-cluster
         ## Validates atlas credentials without creating cluster
-        dryrun: true
+        reuse: true
       env:
         ## Auth
         MDB_API_KEY: ${{ secrets.MDB_API_KEY }}
