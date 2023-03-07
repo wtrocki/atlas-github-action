@@ -33,9 +33,12 @@ jobs:
           echo ${{steps.createCluster.outputs.clusterURL}}
 ```
 
+Environment variables require number of github secrets to be created:
+
+![./resources/secrets.png](./resources/secrets.png)
 
  
-## Code in Main
+## Development
 
 Install the dependencies
 
