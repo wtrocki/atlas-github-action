@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: ./
-      id: createCluster
+      id: createAtlasCluster
       with:
         ## Project ID
         projectId: ${{ secrets.PROJECTID }}
@@ -28,5 +28,10 @@ jobs:
         MONGODB_USER: ${{ secrets.MONGODB_USER }}
         MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
         MDB_BASE_URL:  ${{ secrets.MDB_BASE_URL }}
-    - run: 
-          echo ${{steps.createCluster.outputs.clusterURL}}
+    - run: | 
+        echo "Connecting to mongodb $MDB_CONN_URL. User $MONGODB_USER"
+      env:
+        MONGODB_USER: ${{ secrets.MONGODB_USER }}
+        MDB_CONN_URL: ${{steps.createAtlasCluster.outputs.clusterURL}}
+
+         

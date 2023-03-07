@@ -32,7 +32,7 @@ jobs:
         MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
       - run: 
           ## Prints cluster url to connect with the cluster
-          echo ${{steps.createCluster.outputs.clusterURL}}
+          echo ${{steps.createAtlasCluster.outputs.clusterURL}}
 ```
 
 Environment variables require number of github secrets to be created:
