@@ -2,7 +2,8 @@ const core = require('@actions/core');
 const atlas = require("wtr-cloud-api-client")
 
 function createAPIConfig(core){
-    const apiUrl = new atlas.ServerConfiguration<{  }>(process.env.MDB_BASE_URL || "https://cloud.mongodb.com", {  }) 
+    const url = process.env.MDB_BASE_URL || "https://cloud.mongodb.com";
+    const apiUrl = new atlas.ServerConfiguration(url, {}) 
     const apiKey = process.env.MDB_API_KEY
     const apiSecret = process.env.MDB_API_SECRET
 
@@ -27,9 +28,9 @@ async function run() {
         return
     }
     const api = new atlas.MultiCloudClustersApi(config);
-    const project = core.getInput('projectId');
-    const name = core.getInput('name');
-    const dryRun = core.getInput('dryrun');
+    const project = core.getInput('projectId') || process.env.PROJECTID;
+    const name = core.getInput('name') || process.env.CLUSTER_NAME;
+    const reuse = core.getInput('reuse') || process.env.REUSE;
 
     if (!name){
         return core.setFailed(`Missing name parameter`)
@@ -39,18 +40,22 @@ async function run() {
         return core.setFailed(`Missing project parameter`)
     }
     
-    core.info(`Creating cluster for project: ${project}.`);
-    if(dryRun == "true"){
-      const clusters = await api.listClusters(project)
+    if(reuse === "true"){
+      core.info(`Fetching current cluster based on project and name`)
+      const clusters = await api.getCluster(project, name)
       if(clusters.totalCount === 0){
         return core.setFailed("Dry run finished. No active cluster is present");
       }
-      core.setOutput('connectionURL', clusters.results[0].connectionStrings.standard);
+      core.info(JSON.stringify(clusters))
+      core.setOutput('connectionURL', clusters.connectionStrings.standardSrv);
     }else{
-      // api.createCluster(project,{})
-      core.setOutput('connectionURL', "TODO");
+      core.info(`Creating cluster for project: ${project}`);
+       // api.createCluster(project,{})
+       core.setOutput('connectionURL', "TODO");
+     
     }
   } catch (error) {
+    core.info(error)
     core.setFailed(error.message);
   }
 }
