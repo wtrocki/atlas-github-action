@@ -1,13 +1,18 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'atlas-github-action'
+description: 'Create Atlas Cluster'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  projectId: 
+    description: 'project id'
     required: true
-    default: '1000'
+  name:
+    description: 'cluster name'
+    required: true
+  dryrun:
+    default: "false"
+    description: 'Run without creating cluster. Test if input values are valid'
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  connectionURL: # output will be available to future steps
+    description: 'connectionURL to the mongodb server'
 runs:
   using: 'node16'
   main: 'dist/index.js'
