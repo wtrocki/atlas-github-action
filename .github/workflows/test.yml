@@ -32,6 +32,6 @@ jobs:
         echo "Connecting to mongodb $MDB_CONN_URL. User $MONGODB_USER"
       env:
         MONGODB_USER: ${{ secrets.MONGODB_USER }}
-        MDB_CONN_URL: ${{steps.createAtlasCluster.outputs.clusterURL}}
+        MDB_CONN_URL: ${{steps.createAtlasCluster.outputs.connectionURL}}
 
          
