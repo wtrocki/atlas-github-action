@@ -4,22 +4,29 @@ on:
   push:
     branches:
       - main
-      - 'releases/*'
 
 jobs:
-  # unit tests
-  units:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - run: npm ci
-    - run: npm test
-
   # test action works running from the graph
   test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: ./
+      id: createCluster
       with:
-        milliseconds: 1000
+        ## Project ID
+        projectId: ${{ secrets.PROJECT_ID }}
+        ## Name of cluster
+        name: my-cluster
+        ## Validates atlas credentials without creating cluster
+        dryrun: true
+      env:
+        ## Auth
+        MDB_API_KEY: ${{ secrets.MDB_API_KEY }}
+        MDB_API_SECRET: ${{ secrets.MDB_API_KEY }}
+        ## MongoDB connection credentials
+        MONGODB_USER: ${{ secrets.MONGODB_USER }}
+        MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+        MDB_BASE_URL:  ${{ secrets.MDB_BASE_URL }}
+    - run: 
+          echo ${{steps.createCluster.outputs.clusterURL}}
