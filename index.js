@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const atlas = require("wtr-cloud-api-client")
+const createCluster = require("./src/create/create");
 
 function createAPIConfig(core){
     const url = process.env.MDB_BASE_URL || "https://cloud.mongodb.com";
@@ -27,7 +28,6 @@ async function run() {
     if(!config){
         return
     }
-    const api = new atlas.MultiCloudClustersApi(config);
     const project = core.getInput('projectId') || process.env.PROJECTID;
     const name = core.getInput('name') || process.env.CLUSTER_NAME;
     const reuse = core.getInput('reuse') || process.env.REUSE;
@@ -39,20 +39,18 @@ async function run() {
     if (!project){
         return core.setFailed(`Missing project parameter`)
     }
-    
+    const api = new atlas.MultiCloudClustersApi(config);
     if(reuse === "true"){
       core.info(`Fetching current cluster based on project and name`)
       const clusters = await api.getCluster(project, name)
       if(clusters.totalCount === 0){
-        return core.setFailed("Dry run finished. No active cluster is present");
+        return core.setFailed("Cannot find cluster:" + name);
       }
       core.info(JSON.stringify(clusters))
       core.setOutput('connectionURL', clusters.connectionStrings.standardSrv);
     }else{
-      core.info(`Creating cluster for project: ${project}`);
-       // api.createCluster(project,{})
-       core.setOutput('connectionURL', "TODO");
-     
+       const connectionURL = createCluster(core, config, project, name);
+       core.setOutput('connectionURL', connectionURL);
     }
   } catch (error) {
     core.info(error)
@@ -61,3 +59,4 @@ async function run() {
 }
 
 run();
+
