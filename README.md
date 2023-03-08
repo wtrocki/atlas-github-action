@@ -43,3 +43,7 @@ Environment variables require number of github secrets to be created:
 
 For any other type of cluster set `reuse: true`. Action will make sure that proper user and access rules are created. 
  
+## Notes
+
+This project is using Atlas TypeScript Community SDK.
+See: https://github.com/wtrocki/ts-client-atlas/ for more information
