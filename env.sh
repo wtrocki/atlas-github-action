@@ -1,5 +1,5 @@
 export PROJECTID=63b6dd17362d4278259cfa25
 export CLUSTER_NAME=test
-export REUSE=true
+export REUSE=false
 export MONGODB_USER=skunkyworks92
 export MONGODB_PASSWORD=placeholder
