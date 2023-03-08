@@ -2,9 +2,10 @@
 
 > NOTE: This project is just an experiment. It should not be used by general public.
 
-## Usage
+## Usage with free clusters
 
-You can now consume the action 
+Action by default creates MongoDB atlas M0 cluster, waits for it to start and then returns url to be used in other steps.
+Thanks to finetuning of the arguments creation of the cluster usually takes 20-30 seconds max. 
 
 ```yaml
 jobs:
@@ -20,7 +21,7 @@ jobs:
         ## Name of cluster
         name: my-cluster
         ## Reuse existing cluster instead of creating new one
-        reuse: true
+        reuse: false
       env:
         ## Auth
         MDB_API_KEY: ${{ secrets.MDB_API_KEY }}
@@ -37,6 +38,9 @@ Environment variables require number of github secrets to be created:
 
 ![./resources/secrets.png](./resources/secrets.png)
 
+## Usage with dedicated clusters
+
+For any other type of cluster set `reuse: true`. Action will make sure that proper user and access rules are created. 
  
 ## Development
 
