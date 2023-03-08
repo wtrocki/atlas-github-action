@@ -5,8 +5,8 @@ Please use at your own responsibility.
 
 ## Usage with free clusters
 
-Action by default creates MongoDB atlas M0 cluster, waits for it to start and then returns url to be used in other steps.
-Thanks to finetuning of the arguments creation of the cluster usually takes 20-30 seconds max. 
+Action by default creates MongoDB atlas M0 cluster, waits for it to start and then returns connection url
+
 
 ```yaml
 jobs:
