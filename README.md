@@ -12,7 +12,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: wtrocki/atlas-github-action
+    - uses: wtrocki/atlas-github-action@main
       id: createAtlasCluster
       with:
         ## Project ID
