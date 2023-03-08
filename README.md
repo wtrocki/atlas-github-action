@@ -21,8 +21,6 @@ jobs:
         name: my-cluster
         ## Reuse existing cluster instead of creating new one
         reuse: true
-    default: "false"
-    description: 'Reuse existing cluster without creating new one'
       env:
         ## Auth
         MDB_API_KEY: ${{ secrets.MDB_API_KEY }}
